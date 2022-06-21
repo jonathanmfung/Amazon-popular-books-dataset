@@ -6,6 +6,7 @@
 #+LATEX_HEADER: \setmainfont[]{IBM Plex Sans}
 #+LATEX_HEADER: \setmonofont[]{Iosevka SS14}
 
+* [[file:README.pdf][View as a PDF]]
 * Introduction
 - From Bright Data
 - https://github.com/luminati-io/Amazon-popular-books-dataset
