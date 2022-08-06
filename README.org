@@ -327,6 +327,44 @@ predict(ord_model2,
 predict(ord_model2,
         dplyr::slice_sample(clean_df_array_na_rows, n = 100, replace = TRUE))
 #+end_src
+*** Marginal Effects :noexport:
+
+Marginal effects are only really useful with more complex models. These would ideally encode domain knowledge. As of now, this ordinal model is fairly simple and linear.
+
+#+begin_src R :results output :exports both
+## emmeans(ord_model2,
+##         ~ discount_rel + plus_content + images_count,
+##         var = "discount_rel",
+##         at = list(discount_rel = seq(0,1,.01))) |>
+##   as_tibble() |>
+##   ggplot(aes(x = discount_rel,
+##              y = emmean,
+##              color = plus_content)) + geom_line()
+
+## emmeans(polr(ordered(rating) ~
+##                   discount_rel + plus_content * images_count,
+##                   Hess = TRUE, data = clean_df_array_na_rows),
+##         ~ discount_rel + plus_content + images_count,
+##         var = "images_count",
+##         at = list(images_count = seq(1, 34, 1))) |>
+##   as_tibble() |>
+##   ggplot(aes(x = images_count,
+##              y = emmean,
+##              color = plus_content)) + geom_line()
+
+emmeans(polr(ordered(rating) ~
+               discount_rel + plus_content + images_count,
+                  Hess = TRUE, data = clean_df_array_na_rows),
+        ~ discount_rel + plus_content + images_count,
+        var = "discount_rel",
+        at = list(discount_rel = seq(0,1,.01)), regrid = "response") |>
+  as_tibble() |>
+  ggplot(aes(x = discount_rel,
+             y = response,
+             color = plus_content)) + geom_line()
+#+end_src
+
+#+RESULTS:
 
 #+begin_latex
 \pagebreak
