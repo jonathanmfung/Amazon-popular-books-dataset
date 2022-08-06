@@ -273,7 +273,7 @@ df_array_na_rows %>%
 #+begin_latex
 \pagebreak
 #+end_latex
-** Compare Ordinal Regression Models on \( \text{reviews count} \sim \text{final price} \)
+** Ordinal Regression Model on \( \text{reviews count} \) with multiple DVs
 =rating= takes on values from 3.9 to 4.9 in units of starts out of 5.0. Since this is a discrete variable, with implicit ordering, ordinal regression should be applied here.
 
 #+begin_src R :results output :exports both
@@ -310,6 +310,8 @@ AIC: 4403.213
 #+end_example
 
 For a one point increase in relative discount, the odds of the rating being a tenth of a star higher is src_R{format(exp(coef(ord_model2))[["discount_rel"]], digits = 5)} {{{results(=0.78139=)}}} times the previous, holding all equal. Books with =plus_content= have src_R{format(exp(coef(ord_model2))[["plus_contentTRUE"]], digits = 5)} {{{results(=1.2636=)}}} times the probability of being a higher rating than books without, holding all equal. For a one point increase in a book's images count, the odds of the next rating is src_R{format(exp(coef(ord_model2))[["images_count"]], digits = 5)} {{{results(=1.1384=)}}} times the previous.
+
+Since the discount coefficient is less than 1, it can be interpreted that books that are discounted more are potentially of lesser quality, and thus have lower ratings. For both =plus_content= and =images_count=, both with coefficients greater than 1, it is intuitive that books with more details in their listing lead to higher ratings.
 
 #+begin_src R :eval no :exports none
 ord_model1 <- polr(ordered(rating) ~
