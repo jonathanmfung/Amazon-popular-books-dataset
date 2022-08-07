@@ -231,7 +231,7 @@ df_rows_glm_plot <- df_array_na_rows %>%
 grid.arrange(df_rows_lm_linear_plot, df_rows_lm_plot, df_rows_glm_plot,
              attr(df_rows_lm_linear_resid, "plots")[[1]],
              attr(df_rows_lm_resid, "plots")[[1]],
-             attr(df_rows_glm_resid, "plots")[[1]], nrow = 2)
+             attr(df_rows_glm_resid, "plots")[[1]], nrow = 2) |> invisible()
 #+end_src
 #+RESULTS:
 [[file:./img/df_rows_regressions.png]]
